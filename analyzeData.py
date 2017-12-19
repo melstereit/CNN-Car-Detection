@@ -1,6 +1,7 @@
 import scipy.io as sio
-from urllib import request, parse
+from urllib import request
 from htmldom import htmldom
+import csv
 
 def getLabelsAndPathsFromMatFile(path):
     mat_file = sio.loadmat(path)
@@ -56,3 +57,7 @@ for image in labels_and_paths:
         brands_count[brands_in_data.index(image[2])] += 1
 for brand in range(len(brands_in_data)):
     print(brands_in_data[brand], brands_count[brand])
+
+with open('brands.csv', 'w') as csvfile:
+    wr = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(brands)
