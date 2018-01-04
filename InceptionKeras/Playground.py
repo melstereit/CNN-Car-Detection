@@ -107,4 +107,5 @@ def train_top_layers():
     #Save
     model.save("model.keras")
 
+initializing_and_train_top_layer()
 train_top_layers()
