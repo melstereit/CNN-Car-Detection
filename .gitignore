@@ -153,3 +153,5 @@ fabric.properties
 input/car_ims/
 input/cars_annos.mat
 input/cars_test_annos_withlabels.mat
+ *.iml
+ misc.xml
