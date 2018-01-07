@@ -3,8 +3,8 @@ from keras.applications import InceptionV3
 from keras.applications.imagenet_utils import preprocess_input
 from keras.callbacks import LambdaCallback
 from keras.engine import Model
-from keras.layers import Dense, GlobalMaxPooling2D, MaxPooling2D, Flatten, Dropout
-from keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
+from keras.layers import Dense, MaxPooling2D, GlobalAveragePooling2D
+from keras.preprocessing.image import ImageDataGenerator
 import requests
 
 train_datagen = ImageDataGenerator(
@@ -61,7 +61,7 @@ def initializing_and_train_top_layer():
 
     #Include top layer
     x = base_model.output
-    x = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid')(x)
+    x = GlobalAveragePooling2D()(x)
     x = Dense(1024, activation='relu', kernel_initializer='glorot_normal', bias_initializer='zeros')(x)
     x = Dense(500, activation='relu', kernel_initializer='glorot_normal', bias_initializer='zeros')(x)
     predictions = Dense(196, activation='softmax', kernel_initializer='glorot_normal', bias_initializer='zeros')(x)
