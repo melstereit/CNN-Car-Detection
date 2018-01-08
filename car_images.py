@@ -12,6 +12,12 @@ class CarImages:
         self.mat_file = sio.loadmat(os.path.join(self.path_to_input_files, "cars_annos.mat"))
 
     def get_data(self, resize=None):
+        """
+        loading car images from the given input-path
+        :param resize: if set to True images will be resized to the given standard size,
+        if set to a tuple (width, height) the images will be resized to this size
+        :return: 
+        """
         paths, labels = self._get_paths_and_labels()
         images = self._load_images(paths, resize=resize)
 
