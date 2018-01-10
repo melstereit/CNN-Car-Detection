@@ -8,3 +8,7 @@ and trained 2 epochs
 3. Trained for another 4 epochs 
 
 --> 2 percent top 1 accuracy
+
+4. Trained for another 6 epochs 
+17 hours runtime 
+--> 22 percept top 1 accuracy
