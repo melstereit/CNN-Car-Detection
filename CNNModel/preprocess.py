@@ -2,13 +2,21 @@ import os
 import numpy as np
 import scipy.io as sio
 import PIL.Image as Image
+import logging
 
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
+from pathlib import Path
+from tqdm import tqdm
+
 
 class ReadImages:
+    logging.basicConfig(filename='log/info.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.basicConfig()
+
     def __init__(self, data_path="./data"):
         self.DATA_PATH = data_path
+        self.DATA_SIZE = 12
 
     def _get_labels_and_classes(self):
         label_encoder = preprocessing.LabelEncoder()
@@ -20,12 +28,11 @@ class ReadImages:
         y = np.zeros((size, len(classes)), dtype=int)
         paths = []
         label_encoder.fit(classes)
-
-        for i, annotation in enumerate(image_annos):
+        logging.info("Read annotations and label")
+        for i, annotation in tqdm(enumerate(image_annos)):
             paths.append(annotation[0][0])
             j = label_encoder.transform([classes[annotation[5][0][0] - 1][0]])
             y[i][j] = 1
-        print(y)
         return paths, y
 
     def _get_labels_and_classes_test_version(self):
@@ -46,18 +53,31 @@ class ReadImages:
         return paths, y
 
     def get_train_and_test_data(self):
-        paths, y = self._get_labels_and_classes()
-        X = np.zeros((len(y), 64, 64, 3))
-        if not os.path.exists("car_ims_shaped"):
-            os.makedirs("car_ims_shaped")
-        for i, path in enumerate(paths):
-            img = Image.open(self.DATA_PATH + "/" + path).convert('RGBA')
+        logging.info("Start preprocessing and training")
+        x_file = Path("np_data/X.npy")
+        y_file = Path("np_data/Y.npy")
+        d_size = self.DATA_SIZE
+        if x_file.is_file() and y_file.is_file():
+            logging.info("Data already processed")
+            X = np.load(x_file)
+            y = np.load(y_file)
+        else:
+            logging.info("Processing data")
+            paths, y = self._get_labels_and_classes_test_version()
+            X = np.zeros((len(y), d_size, d_size, 3))
+            if not os.path.exists("car_ims_shaped"):
+                os.makedirs("car_ims_shaped")
+            logging.info("Get train and test data")
+            for i, path in tqdm(enumerate(paths)):
+                img = Image.open(self.DATA_PATH + "/" + path).convert('RGB')
 
-            X[i] = self._resize_image(img)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+                X[i] = self._resize_image(img, size=(d_size, d_size))
+            np.save("np_data/X.npy", X)
+            np.save("np_data/Y.npy", y)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
         return (X_train, y_train), (X_test, y_test)
 
-    def _resize_image(self, image, size=(64, 64), fill_color=(0, 0, 0, 0)):
+    def _resize_image(self, image, size=(128, 128), fill_color=(0, 0, 0)):
         width, height = size
         new_im = Image.new('RGB', (width, height), fill_color)
 
