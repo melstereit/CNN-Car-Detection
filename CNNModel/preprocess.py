@@ -16,7 +16,11 @@ class ReadImages:
 
     def __init__(self, data_path="./data"):
         self.DATA_PATH = data_path
-        self.DATA_SIZE = 12
+        self.DATA_SIZE = 256
+        if not os.path.exists("models"):
+            os.makedirs("models")
+        if not os.path.exists("np_data"):
+            os.makedirs("np_data")
 
     def _get_labels_and_classes(self):
         label_encoder = preprocessing.LabelEncoder()
@@ -63,7 +67,7 @@ class ReadImages:
             y = np.load(y_file)
         else:
             logging.info("Processing data")
-            paths, y = self._get_labels_and_classes_test_version()
+            paths, y = self._get_labels_and_classes()
             X = np.zeros((len(y), d_size, d_size, 3))
             if not os.path.exists("car_ims_shaped"):
                 os.makedirs("car_ims_shaped")
