@@ -16,7 +16,7 @@ class ReadImages:
 
     def __init__(self, data_path="./data"):
         self.DATA_PATH = data_path
-        self.DATA_SIZE = 256
+        self.DATA_SIZE = 128
         if not os.path.exists("models"):
             os.makedirs("models")
         if not os.path.exists("np_data"):
@@ -69,8 +69,6 @@ class ReadImages:
             logging.info("Processing data")
             paths, y = self._get_labels_and_classes()
             X = np.zeros((len(y), d_size, d_size, 3))
-            if not os.path.exists("car_ims_shaped"):
-                os.makedirs("car_ims_shaped")
             logging.info("Get train and test data")
             for i, path in tqdm(enumerate(paths)):
                 img = Image.open(self.DATA_PATH + "/" + path).convert('RGB')
