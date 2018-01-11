@@ -68,7 +68,7 @@ class Model:
         logging.info("CNN Model created.")
 
         # fit and run our model
-        model.fit(X_train, y_train, nb_epoch=epochs, batch_size=500)
+        model.fit(X_train, y_train, nb_epoch=epochs, batch_size=40)
         # Final evaluation of the model
         scores = model.evaluate(X_test, y_test, verbose=0)
         logging.info("Accuracy: %.2f%%" % (scores[1] * 100))
