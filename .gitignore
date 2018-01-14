@@ -153,5 +153,8 @@ fabric.properties
 input/car_ims/
 input/cars_annos.mat
 input/cars_test_annos_withlabels.mat
+CNNModel/data/car_ims
+CNNModel/np_data
+CNNModel/models
  *.iml
  misc.xml
