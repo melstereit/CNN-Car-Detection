@@ -16,7 +16,7 @@ class ReadImages:
 
     def __init__(self, data_path="./data"):
         self.DATA_PATH = data_path
-        self.DATA_SIZE = 128
+        self.DATA_SIZE = 224
         if not os.path.exists("models"):
             os.makedirs("models")
         if not os.path.exists("np_data"):
