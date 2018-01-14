@@ -40,7 +40,7 @@ class Model:
         model.compile(optimizer='adam',
                       loss='categorical_crossentropy',
                       metrics=['accuracy'])
-        logging.info(str(model.summary()))
+        print(str(model.summary())
         model.save('models/my_model.h5')
         return model, epochs
 
