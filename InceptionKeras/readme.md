@@ -18,3 +18,6 @@ and trained 2 epochs
 
 6. Trained for another 6 epochs 
 50 per val. acc, 72 train acc --> Overfitting :/
+
+
+--> Model files stored here: https://github.com/marvpaul/CarDetectionModels
