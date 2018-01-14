@@ -12,3 +12,9 @@ and trained 2 epochs
 4. Trained for another 6 epochs 
 17 hours runtime 
 --> 22 percept top 1 accuracy
+
+5. Trained for another 6 epochs 
+40 per val. acc, 50 train acc --> Small overfitting? 
+
+6. Trained for another 6 epochs 
+50 per val. acc, 72 train acc --> Overfitting :/
