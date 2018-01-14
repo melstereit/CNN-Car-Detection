@@ -10,6 +10,7 @@ from preprocess import ReadImages
 
 class Model:
     def _create_model(self, num_classes, input_shape):
+        
         # Create the model
         model = Sequential()
         model.add(Conv2D(64, (3, 3), padding='same',
@@ -17,21 +18,21 @@ class Model:
         model.add(Activation('relu'))
         model.add(Conv2D(128, (4, 4), padding='same', kernel_initializer='glorot_normal', bias_initializer='zeros'))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2), kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Dropout(0.55))
 
         model.add(Conv2D(64, (3, 3), padding='same', kernel_initializer='glorot_normal', bias_initializer='zeros'))
         model.add(Activation('relu'))
         model.add(Conv2D(32, (5, 5), kernel_initializer='glorot_normal', bias_initializer='zeros'))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2), kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Dropout(0.6))
 
         model.add(Flatten())
-        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(Dense(1024))
         model.add(Activation('relu'))
         model.add(Dropout(0.3))
-        model.add(Dense(num_classes, activation='relu', kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(Dense(num_classes))
         model.add(Activation('softmax'))
         # Compile model
         epochs = 30  # >>> should be 25+
