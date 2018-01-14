@@ -10,6 +10,7 @@ from preprocess import ReadImages
 
 class Model:
     def _create_model(self, num_classes, input_shape):
+        
         # Create the model
         model = Sequential()
         model.add(Conv2D(64, (3, 3), padding='same',
