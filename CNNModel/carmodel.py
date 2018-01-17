@@ -14,12 +14,10 @@ class Model:
         # Create the model
         model = Sequential()
         model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
-        model.add(BatchNormalization(axis=-1, epsilon=0.02, momentum=0.97))
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(5, 5)))
 
         model.add(Conv2D(256, (5, 5)))
-        model.add(BatchNormalization(axis=-1, epsilon=0.02, momentum=0.97))
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(3, 3)))
 
