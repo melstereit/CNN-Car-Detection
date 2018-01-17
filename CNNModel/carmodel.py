@@ -6,33 +6,40 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from preprocess import ReadImages
+from keras.layers.normalization import BatchNormalization
 
 
 class Model:
     def _create_model(self, num_classes, input_shape):
         # Create the model
         model = Sequential()
-        model.add(Conv2D(224, (7, 7), padding='same',
-                         input_shape=input_shape, kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(Conv2D(96, 11, strides=4, border_mode='full'))
+        model.add(BatchNormalization(()))
         model.add(Activation('relu'))
-        model.add(Conv2D(112, (4, 4), padding='same', kernel_initializer='glorot_normal', bias_initializer='zeros'))
-        model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.55))
+        model.add(MaxPooling2D(poolsize=(5, 5)))
 
-        model.add(Conv2D(56, (3, 3), padding='same', kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(Conv2D(256, 5, border_mode='full'))
+        model.add(BatchNormalization(()))
         model.add(Activation('relu'))
-        model.add(Conv2D(112, (5, 5), kernel_initializer='glorot_normal', bias_initializer='zeros'))
+        model.add(MaxPooling2D(poolsize=(3, 3)))
+
+        model.add(Conv2D(384, 3, border_mode='full'))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(MaxPooling2D(poolsize=(3, 3)))
+
+        model.add(Conv2D(384, 3, border_mode='full'))
+        model.add(Activation('relu'))
+
+        model.add(Conv2D(256, 3, border_mode='full'))
+        model.add(Activation('relu'))
+
         model.add(Flatten())
         model.add(Dense(1024))
         model.add(Activation('relu'))
-        model.add(Dropout(0.3))
-        model.add(Dense(num_classes))
+        model.add(Dense(196))
         model.add(Activation('softmax'))
         # Compile model
-        epochs = 30  # >>> should be 25+
+        epochs = 10
         l_rate = 0.02
         #sgd = optimizers.SGD(lr=l_rate, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(optimizer='adam',
