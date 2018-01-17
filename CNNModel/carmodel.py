@@ -13,24 +13,24 @@ class Model:
     def _create_model(self, num_classes, input_shape):
         # Create the model
         model = Sequential()
-        model.add(Conv2D(96, 11, strides=4, border_mode='same'))
+        model.add(Conv2D(96, (11, 11), strides=4))
         model.add(BatchNormalization(()))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(poolsize=(5, 5)))
+        model.add(MaxPooling2D(pool_size=(5, 5)))
 
-        model.add(Conv2D(256, 5, border_mode='same'))
+        model.add(Conv2D(256, (5, 5)))
         model.add(BatchNormalization(()))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(poolsize=(3, 3)))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
 
-        model.add(Conv2D(384, 3, border_mode='same'))
+        model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(poolsize=(3, 3)))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
 
-        model.add(Conv2D(384, 3, border_mode='same'))
+        model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
 
-        model.add(Conv2D(256, 3, border_mode='same'))
+        model.add(Conv2D(256, (3, 3)))
         model.add(Activation('relu'))
 
         model.add(Flatten())
