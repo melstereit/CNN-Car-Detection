@@ -16,17 +16,17 @@ class Model:
         model = Sequential()
         model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(5, 5)))
+        model.add(MaxPooling2D(pool_size=(5, 5), dim_ordering="th"))
         model.add(ZeroPadding2D((2, 2)))
 
         model.add(Conv2D(256, (5, 5)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(MaxPooling2D(pool_size=(3, 3), dim_ordering="th"))
         model.add(ZeroPadding2D((1, 1)))
 
         model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(MaxPooling2D(pool_size=(3, 3), dim_ordering="th"))
 
         model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
