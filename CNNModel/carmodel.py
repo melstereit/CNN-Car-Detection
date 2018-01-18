@@ -16,25 +16,28 @@ class Model:
         # Create the model
         K.set_image_dim_ordering('th')
         model = Sequential()
-        model.add(Conv2D(96, (11, 11), border_mode='same', strides=4, input_shape=input_shape))
+        model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(5, 5)))
         model.add(ZeroPadding2D((2, 2)))
 
-        model.add(Conv2D(256, (5, 5), border_mode='same'))
+        model.add(Conv2D(256, (5, 5)))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(Activation('relu'))
+        model.add(ZeroPadding2D((1, 1)))
+
+        model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(3, 3)))
         model.add(ZeroPadding2D((1, 1)))
 
-        model.add(Conv2D(384, (3, 3), border_mode='same'))
+        model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(ZeroPadding2D((1, 1)))
 
-        model.add(Conv2D(384, (3, 3), border_mode='same'))
+        model.add(Conv2D(256, (3, 3)))
         model.add(Activation('relu'))
-
-        model.add(Conv2D(256, (3, 3) border_mode='same'))
-        model.add(Activation('relu'))
+        model.add(ZeroPadding2D((1, 1)))
 
         model.add(Flatten())
         model.add(Dense(1024))
