@@ -76,6 +76,7 @@ class ReadImages:
                 X[i] = self._resize_image(img, size=(d_size, d_size))
             np.save("np_data/X.npy", X)
             np.save("np_data/Y.npy", y)
+        X -= np.mean(X, axis=0)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
         return (X_train, y_train), (X_test, y_test)
 
