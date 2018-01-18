@@ -14,7 +14,6 @@ from keras.layers.normalization import BatchNormalization
 class Model:
     def _create_model(self, num_classes, input_shape):
         # Create the model
-        K.set_image_dim_ordering('th')
         model = Sequential()
         model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
         model.add(Activation('relu'))
@@ -66,9 +65,6 @@ class Model:
         logging.info('train samples %s', str(X_train.shape[0]))
         logging.info('test samples %s', str(X_test.shape[0]))
 
-        # normalize inputs from 0-255 to 0.0-1.0
-        X_train = X_train.astype('float32')
-        X_test = X_test.astype('float32')
         logging.info(X_train[0].shape)
         input_shape = X_train.shape[1:]
         # create our CNN model
