@@ -7,26 +7,28 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import ZeroPadding2D
 from preprocess import ReadImages
+from keras import backend as K
 from keras.layers.normalization import BatchNormalization
 
 
 class Model:
     def _create_model(self, num_classes, input_shape):
         # Create the model
+        K.set_image_dim_ordering('th')
         model = Sequential()
         model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(5, 5), dim_ordering="th"))
+        model.add(MaxPooling2D(pool_size=(5, 5)))
         model.add(ZeroPadding2D((2, 2)))
 
         model.add(Conv2D(256, (5, 5)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3), dim_ordering="th"))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
         model.add(ZeroPadding2D((1, 1)))
 
         model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3), dim_ordering="th"))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
 
         model.add(Conv2D(384, (3, 3)))
         model.add(Activation('relu'))
