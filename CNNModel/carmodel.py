@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import logging
+import numpy as np
 from keras import optimizers
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
