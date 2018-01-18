@@ -61,6 +61,9 @@ class Model:
 
         # The data, shuffled and split between train and test sets:
         (X_train, y_train), (X_test, y_test) = image_process.get_train_and_test_data()
+        x_train_mean = np.mean(X_train, axis=0)
+        X_train -= x_train_mean
+        X_test -= x_train_mean
         logging.info('x_train shape: %s', str(X_train.shape))
         logging.info('train samples %s', str(X_train.shape[0]))
         logging.info('test samples %s', str(X_test.shape[0]))
