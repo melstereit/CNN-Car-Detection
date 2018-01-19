@@ -45,7 +45,7 @@ class Model:
         model.add(Dense(196))
         model.add(Activation('softmax'))
         # Compile model
-        epochs = 10
+        epochs = 100
         l_rate = 0.02
         #sgd = optimizers.SGD(lr=l_rate, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(optimizer='adam',
@@ -64,7 +64,10 @@ class Model:
         (X_train, y_train), (X_test, y_test) = image_process.get_train_and_test_data()
         x_train_mean = np.mean(X_train, axis=0)
         X_train -= x_train_mean
+
+        # Make data zero centered
         X_test -= x_train_mean
+
         logging.info('x_train shape: %s', str(X_train.shape))
         logging.info('train samples %s', str(X_train.shape[0]))
         logging.info('test samples %s', str(X_test.shape[0]))
@@ -77,7 +80,7 @@ class Model:
         logging.info("CNN Model created.")
 
         # fit and run our model
-        model.fit(X_train, y_train, nb_epoch=epochs, batch_size=40)
+        model.fit(X_train, y_train, epochs=epochs, batch_size=120)
         # Final evaluation of the model
         scores = model.evaluate(X_test, y_test, verbose=0)
         logging.info("Accuracy: %.2f%%" % (scores[1] * 100))
