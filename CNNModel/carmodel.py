@@ -17,12 +17,14 @@ class Model:
         # Create the model
         model = Sequential()
         model.add(Conv2D(96, (11, 11), strides=4, input_shape=input_shape))
+        model.add(BatchNormalization())
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(5, 5)))
         model.add(ZeroPadding2D((2, 2)))
 
         model.add(Conv2D(256, (5, 5)))
         model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(BatchNormalization())
         model.add(Activation('relu'))
         model.add(ZeroPadding2D((1, 1)))
 
@@ -45,8 +47,8 @@ class Model:
         model.add(Dense(196))
         model.add(Activation('softmax'))
         # Compile model
-        epochs = 100
-        l_rate = 0.02
+        epochs = 1000
+        l_rate = 0.02654
         #sgd = optimizers.SGD(lr=l_rate, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(optimizer='adam',
                       loss='categorical_crossentropy',
