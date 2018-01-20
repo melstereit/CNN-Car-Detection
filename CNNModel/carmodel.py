@@ -47,7 +47,7 @@ class Model:
         model.add(Dense(196))
         model.add(Activation('softmax'))
         # Compile model
-        epochs = 1000
+        epochs = 600
         l_rate = 0.02654
         #sgd = optimizers.SGD(lr=l_rate, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(optimizer='adam',
