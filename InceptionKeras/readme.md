@@ -21,3 +21,5 @@ and trained 2 epochs
 
 
 --> Model files stored here: https://github.com/marvpaul/CarDetectionModels
+
+Knowledge base --> https://deeplearningsandbox.com
